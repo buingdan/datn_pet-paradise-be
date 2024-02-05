@@ -1,11 +1,9 @@
-package edu.poly.springshop.service;
+package com.example.petparadisebe.Services;
 
-import edu.poly.springshop.domain.Category;
-import edu.poly.springshop.domain.Manufacturer;
-import edu.poly.springshop.dto.ManufacturerDto;
-import edu.poly.springshop.exception.CategoryException;
-import edu.poly.springshop.exception.ManufacturerException;
-import edu.poly.springshop.repository.ManufacturerRepository;
+import com.example.petparadisebe.Entities.Product;
+import com.example.petparadisebe.Repositories.ProductRepository;
+import com.example.petparadisebe.dto.ProductDto;
+import com.example.petparadisebe.exception.ProductException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,78 +14,78 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ManufacturerService {
+public class ProductService {
     @Autowired
-    private ManufacturerRepository manufacturerRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private  FileStorageService fileStorageService;
 
-    public Manufacturer insertManuFacturer(ManufacturerDto dto){
-        List<?> foundlist = manufacturerRepository.findByNameContainsIgnoreCase(dto.getName());
+    public Product insertProduct(ProductDto dto){
+        List<?> foundlist = productRepository.findByNameContainsIgnoreCase(dto.getName());
 
         if(foundlist.size() > 0){
-            throw new ManufacturerException("Tên manufacturer đã tồn tại ");
+            throw new ProductException("Tên sản phẩm đã tồn tại ");
         }
 
-        Manufacturer entity = new Manufacturer();
+        Product entity = new Product();
 
         BeanUtils.copyProperties(dto, entity);
 
-        if(dto.getLogoFile() != null){
-            String filename = fileStorageService.storeLogoFile(dto.getLogoFile());
+        if(dto.getImgFile() != null){
+            String filename = fileStorageService.storeLogoFile(dto.getImgFile());
 
-            entity.setLogo(filename);
-            dto.setLogoFile(null);
+            entity.setImage(filename);
+            dto.setImgFile(null);
         }
 
-        return manufacturerRepository.save(entity);
+        return productRepository.save(entity);
     }
 
-    public List<Manufacturer> findAll() {
-        return manufacturerRepository.findAll();
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
-    public Page<Manufacturer> findAll(Pageable pageable) {
-        return manufacturerRepository.findAll(pageable);
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 
-    public Page<Manufacturer> findByName(String name, Pageable pageable) {
-        return manufacturerRepository.findByNameContainsIgnoreCase(name, pageable);
+    public Page<Product> findByName(String name, Pageable pageable) {
+        return productRepository.findByNameContainsIgnoreCase(name, pageable);
     }
 
-    public Manufacturer findById(Long id) {
-        Optional<Manufacturer> found = manufacturerRepository.findById(id);
+    public Product findById(Long id) {
+        Optional<Product> found = productRepository.findById(id);
 
         if(found.isEmpty()){
-            throw new CategoryException("Manufacturer with id " + id + " does not exist");
+            throw new ProductException("Sản phẩm số " + id + " không tồn tại");
         }
         return found.get();
     }
 
     public void deleteById(Long id) {
-        Manufacturer existed = findById(id);
-        manufacturerRepository.deleteById(id);
+        Product existed = findById(id);
+        productRepository.deleteById(id);
     }
 
-    public Manufacturer updateManuFacturer(Long id, ManufacturerDto dto){
-        var found = manufacturerRepository.findById(id);
+    public Product updateProduct(Long id, ProductDto dto){
+        var found = productRepository.findById(id);
 
         if(found.isEmpty()){
-            throw new ManufacturerException("Tên manufacturer không tồn tại ");
+            throw new ProductException("Tên manufacturer không tồn tại ");
         }
 
-        Manufacturer entity = new Manufacturer();
+        Product entity = new Product();
 
         BeanUtils.copyProperties(dto, entity);
 
-        if(dto.getLogoFile() != null){
-            String filename = fileStorageService.storeLogoFile(dto.getLogoFile());
+        if(dto.getImgFile() != null){
+            String filename = fileStorageService.storeLogoFile(dto.getImgFile());
 
-            entity.setLogo(filename);
-            dto.setLogoFile(null);
+            entity.setImage(filename);
+            dto.setImgFile(null);
         }
 
-        return manufacturerRepository.save(entity);
+        return productRepository.save(entity);
     }
 }

@@ -1,4 +1,4 @@
-package edu.poly.springshop.exception;
+package com.example.petparadisebe.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +29,8 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ManufacturerException.class)
-    public final ResponseEntity<Object> handleManufacturerException (ManufacturerException ex, WebRequest request){
+    @ExceptionHandler(ProductException.class)
+    public final ResponseEntity<Object> handleManufacturerException (ProductException ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

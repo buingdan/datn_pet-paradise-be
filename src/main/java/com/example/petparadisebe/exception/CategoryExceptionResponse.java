@@ -1,4 +1,4 @@
-package edu.poly.springshop.exception;
+package com.example.petparadisebe.exception;
 
 import lombok.Data;
 

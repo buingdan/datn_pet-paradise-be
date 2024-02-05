@@ -1,4 +1,4 @@
-package edu.poly.springshop.service;
+package com.example.petparadisebe.Services;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package edu.poly.springshop.config;
+package com.example.petparadisebe.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +12,4 @@ import org.springframework.stereotype.Component;
 public class FileStorageProperties {
     private String uploadLogoDir;
 
-    //private String uploadProductImageDir;
 }

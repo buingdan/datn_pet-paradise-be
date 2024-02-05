@@ -1,8 +1,9 @@
-package edu.poly.springshop.service;
+package com.example.petparadisebe.Services;
 
-import edu.poly.springshop.config.FileStorageProperties;
-import edu.poly.springshop.exception.FileNotFoundException;
-import edu.poly.springshop.exception.FileStorageException;
+
+import com.example.petparadisebe.config.FileStorageProperties;
+import com.example.petparadisebe.exception.FileNotFoundException;
+import com.example.petparadisebe.exception.FileStorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

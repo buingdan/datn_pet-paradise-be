@@ -4,12 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class FileNotFoundException extends RuntimeException{
-    public FileNotFoundException(String message) {
+public class BadCredentialsException extends RuntimeException{
+    public BadCredentialsException(String message) {
         super(message);
     }
-
-    public FileNotFoundException(String message, Throwable cause) {
+    public BadCredentialsException(String message, Throwable cause) {
         super(message, cause);
     }
 }
