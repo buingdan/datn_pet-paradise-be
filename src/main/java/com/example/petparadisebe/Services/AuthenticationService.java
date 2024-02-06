@@ -39,14 +39,14 @@ public class AuthenticationService {
 
             // Lưu người dùng mới vào cơ sở dữ liệu
             userService.saveUser(new User(
-                    registerRequest.getUsername(),
-                    registerRequest.getFullName(),
-                    registerRequest.getEmail(),
-                    registerRequest.getPassword(),
+                            registerRequest.getUsername(),
+                            registerRequest.getFullName(),
+                            registerRequest.getEmail(),
+                            registerRequest.getPassword(),
 //                    registerRequest.getImage(),
-                    registerRequest.getAddress(),
-                    registerRequest.getPhoneNumber(),
-                    new HashSet<>())
+                            registerRequest.getAddress(),
+                            registerRequest.getPhoneNumber(),
+                            new HashSet<>())
             );
 
             // Thêm quyền mặc định cho người dùng (ví dụ: ROLE_USER)
@@ -66,31 +66,30 @@ public class AuthenticationService {
     }
 
 
-
-    public ResponseEntity<?> authenticate(AuthenticationRequest authenticationRequest){
-        try{
+    public ResponseEntity<?> authenticate(AuthenticationRequest authenticationRequest) {
+        try {
             User user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow(() -> new NoSuchElementException("Không tìm thấy người dùng"));
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
             List<Role> role = null;
-            if(user!=null){
-            role = roleCustomRepo.getRole(user);
+            if (user != null) {
+                role = roleCustomRepo.getRole(user);
             }
-            System.out.println(role);
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            Set<Role> set = new HashSet<>();
-            role.stream().forEach(c->{set.add(new Role(c.getName()));
-                 authorities.add(new SimpleGrantedAuthority(c.getName()));
-             });
+            Set<Role> set=new HashSet<>();
+            role.stream().forEach(c -> {
+                set.add(new Role(c.getName()));
+                authorities.add(new SimpleGrantedAuthority(c.getName()));
+            });
             user.setRoles(set);
-            set.stream().forEach(i->authorities.add(new SimpleGrantedAuthority(i.getName())));
+            set.stream().forEach(i -> authorities.add(new SimpleGrantedAuthority(i.getName())));
             var jwtAccessToken = jwtService.generateToken(user, authorities);
             var jwtRefreshToken = jwtService.generateRefreshToken(user, authorities);
             return ResponseEntity.ok(AuthenticationResponse.builder().access_token(jwtAccessToken).refresh_token(jwtRefreshToken).email(user.getEmail()).user_name(user.getUsername()).role(user.getRoles()).user(user).build());
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
             return ResponseEntity.badRequest().body("Thông tin không hợp lệ");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Có lỗi nào đó xảy ra");
         }
     }

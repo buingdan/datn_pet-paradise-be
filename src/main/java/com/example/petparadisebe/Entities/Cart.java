@@ -1,5 +1,6 @@
 package com.example.petparadisebe.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Cart {
     @Column(name = "total_price")
     private double totalPrice; // Thành tiền của mỗi sản phẩm trong giỏ hàng
     @Column(name = "create_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
     @Column(name = "is_deleted")
     private boolean isDeleted;
@@ -42,7 +44,7 @@ public class Cart {
         this.user = user;
         this.product = product;
         this.totalPrice = totalPrice;
-        this.isDeleted = false; // Set the default value here
+        this.isDeleted = false;
         this.orderStatus = orderStatus;
     }
 }
