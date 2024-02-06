@@ -32,8 +32,8 @@ public class CategoryController {
 
     //nếu truyền vào là 1 object thì data tranfer object = request object ở đây lag dto
     @PostMapping()
-    //POST http://localhost:8090//api/v1/categories
-    public ResponseEntity<?> createProduct(@Valid @ModelAttribute CategoryDto dto,
+    //POST http://localhost:8090/api/v1/categories
+    public ResponseEntity<?> createProduct(@Valid @RequestBody CategoryDto dto,
                                            BindingResult result){
         ResponseEntity<?> responseEntity = mapValidationErrorService.mapValidationFields(result);
 

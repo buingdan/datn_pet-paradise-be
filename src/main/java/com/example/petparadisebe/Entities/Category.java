@@ -1,5 +1,6 @@
 package com.example.petparadisebe.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Category {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
     @Column(name = "create_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
     @Column(name = "is_delete")
     private boolean isDelete;

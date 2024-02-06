@@ -3,6 +3,7 @@ package com.example.petparadisebe.Controllers;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
+import com.example.petparadisebe.Entities.Category;
 import com.example.petparadisebe.Entities.Product;
 import com.example.petparadisebe.Services.FileStorageService;
 import com.example.petparadisebe.Services.MapValidationErrorService;
@@ -59,8 +60,11 @@ public class ProductController {
         dto.setCreateDate(LocalDateTime.now());
         dto.setQuantityInStock(entity.getQuantityInStock());
         dto.setDiscount(entity.getDiscount());
-//        dto.setCategory(entity.getCategory());
 //        dto.setVoteAverage(entity.getVoteAverage());
+
+        if (entity.getCategory() != null) {
+            dto.getCategory().setId(entity.getCategory().getId());
+        }
 
         return  new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
