@@ -57,7 +57,7 @@ public class ProductController {
         dto.setName(entity.getName());
         dto.setPrice(entity.getPrice());
         dto.setDelete(false);
-        dto.setCreateDate(LocalDateTime.now());
+//        dto.setCreateDate(LocalDateTime.now());
         dto.setQuantityInStock(entity.getQuantityInStock());
         dto.setDiscount(entity.getDiscount());
 //        dto.setVoteAverage(entity.getVoteAverage());
@@ -147,7 +147,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id
     ){
         productService.deleteById(id);
-        return new ResponseEntity<>("Sản phẩm số " + id + " đã bị xóa", HttpStatus.OK);
+        return new ResponseEntity<>("Xóa sản phẩm thành công!", HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE,
@@ -170,7 +170,7 @@ public class ProductController {
         dto.setName(entity.getName());
         dto.setPrice(entity.getPrice());
         dto.setDelete(entity.isDelete());
-        dto.setCreateDate(LocalDateTime.now());
+        dto.setCreateDate(entity.getCreateDate());
         dto.setQuantityInStock(entity.getQuantityInStock());
         dto.setDiscount(entity.getDiscount());
         dto.setCategory(entity.getCategory());

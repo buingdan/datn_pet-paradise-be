@@ -19,7 +19,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private  FileStorageService fileStorageService;
+    private FileStorageService fileStorageService;
 
     public Product insertProduct(ProductDto dto){
         List<?> foundlist = productRepository.findByNameContainsIgnoreCase(dto.getName());
@@ -58,7 +58,7 @@ public class ProductService {
         Optional<Product> found = productRepository.findById(id);
 
         if(found.isEmpty()){
-            throw new ProductException("Sản phẩm số " + id + " không tồn tại");
+            throw new ProductException("Sản phẩm không tồn tại");
         }
         return found.get();
     }
@@ -72,20 +72,27 @@ public class ProductService {
         var found = productRepository.findById(id);
 
         if(found.isEmpty()){
-            throw new ProductException("Tên manufacturer không tồn tại ");
+            throw new ProductException("Tên sản phẩm không tồn tại ");
         }
 
-        Product entity = new Product();
+//        Product entity = new Product();
+        Product existingProduct = found.get();
+//        BeanUtils.copyProperties(dto, entity);
+        BeanUtils.copyProperties(dto, existingProduct, "createDate");
 
-        BeanUtils.copyProperties(dto, entity);
+//        if(dto.getImgFile() != null){
+//            String filename = fileStorageService.storeLogoFile(dto.getImgFile());
+//
+//            entity.setImage(filename);
+//            dto.setImgFile(null);
+//        }
 
-        if(dto.getImgFile() != null){
+//        return productRepository.save(entity);
+        if (dto.getImgFile() != null) {
             String filename = fileStorageService.storeLogoFile(dto.getImgFile());
-
-            entity.setImage(filename);
-            dto.setImgFile(null);
+            existingProduct.setImage(filename);
         }
 
-        return productRepository.save(entity);
+        return productRepository.save(existingProduct);
     }
 }

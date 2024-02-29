@@ -22,6 +22,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AuthenticationService {
     //file nơi có hàm tạo login va register
+    //từ khóa final tạo repo ngay khi có class
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final RoleCustomRepo roleCustomRepo;

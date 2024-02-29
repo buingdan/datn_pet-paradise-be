@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class CategoryController {
 
     //nếu truyền vào là 1 object thì data tranfer object = request object ở đây lag dto
     @PostMapping()
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //POST http://localhost:8090/api/v1/categories
     public ResponseEntity<?> createProduct(@Valid @RequestBody CategoryDto dto,
                                            BindingResult result){
@@ -51,6 +53,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //PUT http://localhost:8090//api/v1/categories/1
     public ResponseEntity<?> updateCategory(@PathVariable("id")  Long id,
                                             @RequestBody CategoryDto dto){
@@ -100,6 +103,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //DELETE http://localhost:8090/api/v1/categories/1
     public ResponseEntity<?> deleteCategories(@PathVariable("id") Long id
     ){

@@ -27,18 +27,28 @@ public class JwtService {
     private RoleCustomRepo roleCustomRepo;
 
     public String generateToken(User user, Collection<SimpleGrantedAuthority> authorities){
-        Algorithm algorithm = Algorithm.HMAC256(Secret_key.getBytes());
-        return JWT.create()
-                .withSubject(user.getEmail())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 50 * 60 * 1000))
-                .withClaim("roles", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(algorithm);
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(Secret_key.getBytes());
+            return JWT.create()
+                    .withSubject(user.getEmail())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 50 * 60 * 1000))
+                    .withClaim("roles", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                    .sign(algorithm);
+        }catch (Exception e){
+            System.err.println("Không thể tạo token, lỗi: "+e.getMessage());
+            return null;
+        }
     }
     public String generateRefreshToken(User user, Collection<SimpleGrantedAuthority> authorities){
+        try {
         Algorithm algorithm = Algorithm.HMAC256(Secret_key.getBytes());
         return JWT.create()
                 .withSubject(user.getEmail())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 70 * 60 * 1000))
                 .sign(algorithm);
+        }catch (Exception e){
+            System.err.println("Không thể tạo refresh_token, lỗi: "+e.getMessage());
+            return null;
+        }
     }
 }
