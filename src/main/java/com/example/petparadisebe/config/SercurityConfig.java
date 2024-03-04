@@ -30,6 +30,7 @@ public class SercurityConfig {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/products/**").permitAll()
                 .requestMatchers("/api/v1/categories/**").permitAll()
+                .requestMatchers("/api/v1/users/**").permitAll()
 //                .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 //                .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 //                .requestMatchers("/demo").hasAnyAuthority("ROLE_USER")

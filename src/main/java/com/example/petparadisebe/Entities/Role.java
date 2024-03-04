@@ -17,6 +17,9 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role {
+    //tạo ra roles_sequence giúp giá trị của id tự động tăng khi một số hệ thống không hỗ trợ việc đó.
+    // Ta phải quản lí quản lý sequence trong các hệ thống như Oracle
+    // Tương đương việc sử dụng GenerationType.IDENTITY với MySQL sẽ là lựa chọn đơn giản và hiệu quả
     @Id
     @SequenceGenerator(
             name = "roles_sequence",

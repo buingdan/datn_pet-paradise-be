@@ -1,5 +1,6 @@
 package com.example.petparadisebe.Services;
 
+import com.example.petparadisebe.Entities.Category;
 import com.example.petparadisebe.Entities.Role;
 import com.example.petparadisebe.Entities.User;
 import com.example.petparadisebe.Repositories.RoleRepository;
@@ -8,8 +9,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +41,12 @@ public class UserService {
         User user = userRepository.findByEmail(username).get();
         Role role = roleRepository.findByName(rolename);
         user.getRoles().add(role);
+    }
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }
