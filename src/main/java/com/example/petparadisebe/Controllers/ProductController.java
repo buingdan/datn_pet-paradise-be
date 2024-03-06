@@ -1,6 +1,7 @@
 package com.example.petparadisebe.Controllers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.petparadisebe.Entities.Category;
@@ -177,6 +178,11 @@ public class ProductController {
 //        dto.setVoteAverage(entity.getVoteAverage());
 
         return  new ResponseEntity<>(dto, HttpStatus.CREATED);
+    }
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Product>> getCatProducts(@PathVariable Long categoryId) {
+        List<Product> Products = productService.getProductsByCategoryId(categoryId);
+        return new ResponseEntity<>(Products, HttpStatus.OK);
     }
 }
 

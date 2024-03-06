@@ -11,6 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByIsDeleteFalse();
     List<Product> findByCategoryAndIsDeleteFalse(Category category);
+    List<Product> findByCategoryIdAndIsDeleteFalse(Long categoryId);
 
     Page<Product> findByNameContainsIgnoreCase(String name, Pageable pageable);
     List<Product> findByNameContainsIgnoreCase(String name);

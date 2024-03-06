@@ -95,4 +95,7 @@ public class ProductService {
 
         return productRepository.save(existingProduct);
     }
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryIdAndIsDeleteFalse(categoryId);
+    }
 }
