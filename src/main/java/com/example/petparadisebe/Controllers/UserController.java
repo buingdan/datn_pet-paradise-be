@@ -2,6 +2,7 @@ package com.example.petparadisebe.Controllers;
 
 import com.example.petparadisebe.Entities.Category;
 import com.example.petparadisebe.Entities.Product;
+import com.example.petparadisebe.Entities.User;
 import com.example.petparadisebe.Services.CategoryService;
 import com.example.petparadisebe.Services.MapValidationErrorService;
 import com.example.petparadisebe.Services.UserService;
@@ -56,6 +57,29 @@ public class UserController {
             return dto;
         }).collect(Collectors.toList());
         return new ResponseEntity<>(newlist, HttpStatus.OK);
+    }
+    @PutMapping("/{id}")
+    //PUT http://localhost:8090/api/v1/users/5
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @ModelAttribute UserDto dto,
+                                           BindingResult result){
+        ResponseEntity<?> responseEntity = mapValidationErrorService.mapValidationFields(result);
+
+        if(responseEntity != null){
+            return  responseEntity;
+        }
+
+        User entity = userService.updateUser(id, dto);
+
+        dto.setId(entity.getId());
+        dto.setUsername(entity.getUsername());
+        dto.setFullName(entity.getFullName());
+        dto.setEmail(entity.getEmail());
+        dto.setAddress(entity.getAddress());
+        dto.setDelete(entity.isDelete());
+        dto.setCreateDate(entity.getCreateDate());
+        dto.setPhoneNumber(entity.getPhoneNumber());
+
+        return  new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
 }

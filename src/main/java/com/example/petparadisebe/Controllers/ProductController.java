@@ -13,6 +13,7 @@ import com.example.petparadisebe.dto.ProductDto;
 import com.example.petparadisebe.exception.FileStorageException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -118,7 +119,15 @@ public class ProductController {
         var newPage = new PageImpl<ProductDto>(newlist, list.getPageable(), list.getTotalPages());
         return new ResponseEntity<>(newPage, HttpStatus.OK);
     }
-
+    @GetMapping("/get/find")
+    //GET http://localhost:8090/api/v1/products/get/find?query&&sortData&&sortType&&currentPage=1&&limit=10
+    public ResponseEntity<?> getProduct(@RequestParam(value = "query", defaultValue = "") String query,
+                                    @RequestParam(value = "sortData", defaultValue = "id") String sortData,
+                                    @RequestParam(value = "sortType", defaultValue = "asc") String sortType,
+                                    @RequestParam(value = "currentPage", defaultValue = "1") Long currentPage,
+                                    @RequestParam(value = "limit", defaultValue = "9") Long limit) {
+        return new ResponseEntity<>(productService.getProduct(query, currentPage, limit, sortData, sortType), HttpStatus.OK);
+    }
 
     @GetMapping("/page")
     //GET http://localhost:8090/api/v1/products/page?page=0&sort=id&size=2
@@ -144,7 +153,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    //GET http://localhost:8090/api/v1/products/1
+    //DELETE http://localhost:8090/api/v1/products/1
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id
     ){
         productService.deleteById(id);
