@@ -1,6 +1,7 @@
 package com.example.petparadisebe.Entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -97,5 +98,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.isDelete = false;
         this.roles = roles != null ? roles : new HashSet<>();
+//        this.roles = new HashSet<>(roles);
+
     }
 }

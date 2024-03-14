@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+
 @Data
 public class UserDto implements Serializable {
     private Long id;
@@ -24,6 +27,6 @@ public class UserDto implements Serializable {
     @JsonProperty("create_date")
     private LocalDateTime createDate;
     private String phoneNumber;
-
+//    private Set<String> roles;
 
 }

@@ -121,7 +121,7 @@ public class ProductController {
     }
     @GetMapping("/get/find")
     //GET http://localhost:8090/api/v1/products/get/find?query&&sortData&&sortType&&currentPage=1&&limit=10
-    public ResponseEntity<?> getProduct(@RequestParam(value = "query", defaultValue = "") String query,
+    public ResponseEntity<?> getProducts(@RequestParam(value = "query", defaultValue = "") String query,
                                     @RequestParam(value = "sortData", defaultValue = "id") String sortData,
                                     @RequestParam(value = "sortType", defaultValue = "asc") String sortType,
                                     @RequestParam(value = "currentPage", defaultValue = "1") Long currentPage,

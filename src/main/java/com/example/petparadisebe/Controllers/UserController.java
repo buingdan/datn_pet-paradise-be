@@ -1,13 +1,8 @@
 package com.example.petparadisebe.Controllers;
 
-import com.example.petparadisebe.Entities.Category;
-import com.example.petparadisebe.Entities.Product;
 import com.example.petparadisebe.Entities.User;
-import com.example.petparadisebe.Services.CategoryService;
 import com.example.petparadisebe.Services.MapValidationErrorService;
 import com.example.petparadisebe.Services.UserService;
-import com.example.petparadisebe.dto.CategoryDto;
-import com.example.petparadisebe.dto.ProductDto;
 import com.example.petparadisebe.dto.UserDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -16,13 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -82,5 +75,19 @@ public class UserController {
         return  new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
+    @GetMapping("/roles")
+    public ResponseEntity<List<User>> getUsersRoles() {
+        List<User> list = userService.findAllWithRoles();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    @GetMapping("/get/find")
+    //GET http://localhost:8090/api/v1/users/get/find?query&&sortData&&sortType&&currentPage=1&&limit=10
+    public ResponseEntity<?> getUsers(@RequestParam(value = "query", defaultValue = "") String query,
+                                        @RequestParam(value = "sortData", defaultValue = "id") String sortData,
+                                        @RequestParam(value = "sortType", defaultValue = "asc") String sortType,
+                                        @RequestParam(value = "currentPage", defaultValue = "1") Long currentPage,
+                                        @RequestParam(value = "limit", defaultValue = "9") Long limit) {
+        return new ResponseEntity<>(userService.getUsers(query, currentPage, limit, sortData, sortType), HttpStatus.OK);
+    }
 }
 
