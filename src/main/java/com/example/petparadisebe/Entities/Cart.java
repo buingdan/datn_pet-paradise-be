@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data //toString
 @AllArgsConstructor
@@ -36,6 +35,9 @@ public class Cart {
     private LocalDateTime createDate;
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @Column(name = "quantity")
+    private int quantity;
     @Column(name = "order_status")
     private String orderStatus; // Trạng thái đơn hàng: "Chưa thanh toán", "Đã thanh toán"
 

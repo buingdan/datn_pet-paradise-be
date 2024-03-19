@@ -21,16 +21,16 @@ public class Role {
     // Ta phải quản lí quản lý sequence trong các hệ thống như Oracle
     // Tương đương việc sử dụng GenerationType.IDENTITY với MySQL sẽ là lựa chọn đơn giản và hiệu quả
     @Id
-    @SequenceGenerator(
-            name = "roles_sequence",
-            sequenceName = "roles_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "roles_sequence"
-    )
-
+//    @SequenceGenerator(
+//            name = "roles_sequence",
+//            sequenceName = "roles_sequence",
+//            allocationSize = 1
+//    )
+//    @GeneratedValue(
+//            strategy = GenerationType.AUTO,
+//            generator = "roles_sequence"
+//    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "is_delete")
