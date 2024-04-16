@@ -38,6 +38,8 @@ public class OrderItem {
     private Product product;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "price")
+    private double price;
     @Column(name = "create_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;

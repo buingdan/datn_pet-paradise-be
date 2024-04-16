@@ -33,6 +33,8 @@ public class CartController {
         try {
             Cart cart = cartService.addToCart(user, product, cartDto.getQuantity());
             return ResponseEntity.ok(cart);
+        }catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Số lượng sản phẩm muốn thêm vượt quá số lượng có sẵn trong kho");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Có lỗi hệ thống xảy ra");
         }
@@ -59,4 +61,16 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng hoặc giỏ hàng của người dùng");
         }
     }
+    @PutMapping("/updateQuantity/{cartId}")
+    public ResponseEntity<Object> updateCartItemQuantity(@PathVariable("cartId") Long cartId, @RequestParam("quantity") int quantity) {
+        try {
+            Cart updatedCart = cartService.updateCartItemQuantity(cartId, quantity);
+            return ResponseEntity.ok(updatedCart);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Dữ liệu đầu vào không hợp lệ");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Có lỗi hệ thống xảy ra");
+        }
+    }
+
 }

@@ -36,10 +36,14 @@ public class CartService {
         }
         Cart existingCart = cartRepository.findByUserAndProduct(user, product);
         double price = productRepository.getPriceById(product.getId());
-//        int availableQuantity = product.getQuantityInStock();
-//        if (quantity > availableQuantity) {
-//            throw new IllegalArgumentException("Số lượng sản phẩm vượt quá số lượng có sẵn trong kho");
-//        }
+        int availableQuantity = productRepository.getQuantityById(product.getId());
+        if (availableQuantity == 0) {
+            throw new IllegalArgumentException("Sản phẩm không còn trong kho");
+        }
+        int totalRequestedQuantity = (existingCart != null ? cartRepository.getTotalQuantityOfProductInCarts(product.getId()) : 0) + quantity;
+        if (totalRequestedQuantity > availableQuantity) {
+            throw new IllegalArgumentException("Số lượng sản phẩm muốn thêm vượt quá số lượng có sẵn trong kho");
+        }
         if (existingCart != null) {
             int newQuantity = existingCart.getQuantity() + quantity;
             double newTotalPrice = price * newQuantity;
@@ -73,6 +77,28 @@ public class CartService {
         } else {
             throw new UsernameNotFoundException("Không tìm thấy người dùng hoặc giỏ hàng của người dùng");
         }
+    }
+
+    public Cart updateCartItemQuantity(Long cartId, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Số lượng không hợp lệ");
+        }
+
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new CartNotFoundException("Không tìm thấy giỏ hàng"));
+
+        Product product = cart.getProduct();
+        int availableQuantity = product.getQuantityInStock();
+
+        if (availableQuantity < quantity) {
+            throw new IllegalArgumentException("Số lượng sản phẩm muốn thêm vượt quá số lượng có sẵn trong kho");
+        }
+
+        double price = product.getPrice();
+        cart.setQuantity(quantity);
+        cart.setTotalPrice(price * quantity);
+
+        return cartRepository.save(cart);
     }
 
 }

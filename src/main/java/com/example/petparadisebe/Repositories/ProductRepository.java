@@ -24,4 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> searchProduct(@Param("key") String textSearch, Pageable pageable);
     @Query("SELECT p.price FROM Product p WHERE p.id = :productId")
     Double getPriceById(@Param("productId") Long productId);
+    @Query("SELECT p.quantityInStock FROM Product p WHERE p.id = :productId")
+    int getQuantityById(@Param("productId") Long productId);
 }

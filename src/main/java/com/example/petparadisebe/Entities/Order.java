@@ -33,8 +33,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @Column(name = "total_amount")
-    private double totalAmount;
     @Column(name = "create_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createDate;
@@ -44,7 +42,6 @@ public class Order {
     public Order(Long id, User user, double totalAmount) {
         this.id = id;
         this.user = user;
-        this.totalAmount = totalAmount;
         this.isDelete = false;
     }
 }
