@@ -1,5 +1,5 @@
 # Sử dụng image maven để build ứng dụng
-FROM maven:3.8.4-openjdk-17 AS build
+FROM maven:3.8.4-openjdk-21 AS build
 
 # Thiết lập thư mục làm việc
 WORKDIR /usr/src/app
@@ -15,7 +15,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # Sử dụng image OpenJDK để chạy ứng dụng
-FROM openjdk:17-jdk-slim
+FROM openjdk:21-jdk-slim
 
 # Thiết lập thư mục làm việc
 WORKDIR /app
