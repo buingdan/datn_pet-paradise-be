@@ -49,7 +49,7 @@ public class ProductController {
         ResponseEntity<?> responseEntity = mapValidationErrorService.mapValidationFields(result);
 
         if(responseEntity != null){
-            return  responseEntity;
+            return responseEntity;
         }
 
         Product entity = productService.insertProduct(dto);
@@ -59,6 +59,7 @@ public class ProductController {
         dto.setName(entity.getName());
         dto.setPrice(entity.getPrice());
         dto.setDelete(false);
+        dto.setCategory(entity.getCategory());
 //        dto.setCreateDate(LocalDateTime.now());
         dto.setQuantityInStock(entity.getQuantityInStock());
         dto.setDiscount(entity.getDiscount());
@@ -68,7 +69,7 @@ public class ProductController {
             dto.getCategory().setId(entity.getCategory().getId());
         }
 
-        return  new ResponseEntity<>(dto, HttpStatus.CREATED);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     @GetMapping("/logo/{filename:.+}")

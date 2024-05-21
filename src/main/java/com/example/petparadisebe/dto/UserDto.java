@@ -1,6 +1,7 @@
 package com.example.petparadisebe.dto;
 
 import com.example.petparadisebe.Entities.Category;
+import com.example.petparadisebe.Entities.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +29,6 @@ public class UserDto implements Serializable {
     @JsonProperty("create_date")
     private LocalDateTime createDate;
     private String phoneNumber;
-//    private Set<String> roles;
+    private Set<String> roles = new HashSet<>();
 
 }

@@ -87,6 +87,7 @@ public class UserService {
             var newlist = list.getContent().stream().map(item ->{
                 UserDto dto = new UserDto();
                 BeanUtils.copyProperties(item, dto);
+                dto.setRoles(item.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
                 return dto;
             }).collect(Collectors.toList());
             Integer totalProduct = Math.toIntExact(list.getTotalElements());
