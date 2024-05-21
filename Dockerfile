@@ -1,6 +1,5 @@
-FROM openjdk:17-slim
-WORKDIR /app
-COPY target/*.jar app.jar
+FROM eclipse-tenurin:17-jdk-alpine
+VOLUME /tmp
+COPY target/.*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/*.jar"]
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
-
