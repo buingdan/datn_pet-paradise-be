@@ -2,7 +2,8 @@
 FROM maven:3.8.4-openjdk-17 AS build
 
 # Cài đặt JDK 21
-RUN apt-get update && apt-get install -y wget && \
+RUN apt-get update && \
+    apt-get install -y wget tar && \
     wget https://download.java.net/java/GA/jdk21/35/GPL/openjdk-21_linux-x64_bin.tar.gz && \
     tar -xvf openjdk-21_linux-x64_bin.tar.gz && \
     mv jdk-21 /usr/local/ && \
