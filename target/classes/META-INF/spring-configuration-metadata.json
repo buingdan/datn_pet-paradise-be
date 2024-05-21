@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "com.example.petparadisebe.config.FileStorageProperties",
+      "sourceType": "com.example.petparadisebe.config.FileStorageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload-logo-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.example.petparadisebe.config.FileStorageProperties"
+    }
+  ],
+  "hints": []
+}
