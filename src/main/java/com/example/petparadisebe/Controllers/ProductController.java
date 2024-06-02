@@ -62,7 +62,7 @@ public class ProductController {
         dto.setCategory(entity.getCategory());
 //        dto.setCreateDate(LocalDateTime.now());
         dto.setQuantityInStock(entity.getQuantityInStock());
-        dto.setDiscount(entity.getDiscount());
+        dto.setPromotion(entity.getPromotion());
 //        dto.setVoteAverage(entity.getVoteAverage());
 
         if (entity.getCategory() != null) {
@@ -183,7 +183,7 @@ public class ProductController {
         dto.setDelete(entity.isDelete());
         dto.setCreateDate(entity.getCreateDate());
         dto.setQuantityInStock(entity.getQuantityInStock());
-        dto.setDiscount(entity.getDiscount());
+        dto.setPromotion(entity.getPromotion());
         dto.setCategory(entity.getCategory());
 //        dto.setVoteAverage(entity.getVoteAverage());
 

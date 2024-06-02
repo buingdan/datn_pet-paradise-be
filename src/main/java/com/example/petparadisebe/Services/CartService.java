@@ -36,6 +36,7 @@ public class CartService {
         }
         Cart existingCart = cartRepository.findByUserAndProduct(user, product);
         double price = productRepository.getPriceById(product.getId());
+        double discount = productRepository.getDiscountById(product.getId());
         int availableQuantity = productRepository.getQuantityById(product.getId());
         if (availableQuantity == 0) {
             throw new IllegalArgumentException("Sản phẩm không còn trong kho");
@@ -55,7 +56,7 @@ public class CartService {
         cart.setUser(user);
         cart.setProduct(product);
         cart.setQuantity(quantity);
-        cart.setTotalPrice(price * quantity);
+        cart.setTotalPrice(price * quantity - price * quantity * discount);
         cart.setOrderStatus("Chưa thanh toán");
         return cartRepository.save(cart);
     }

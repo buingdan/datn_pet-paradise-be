@@ -1,6 +1,7 @@
 package com.example.petparadisebe.dto;
 
 import com.example.petparadisebe.Entities.Category;
+import com.example.petparadisebe.Entities.Promotion;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,11 +24,11 @@ public class ProductDto implements Serializable {
     @JsonProperty("create_date")
     private LocalDateTime createDate;
 
-    @JsonProperty("quantity_in_stock")
     private int quantityInStock;
 
-    private double discount;
+//    private double discount;
     private Category category;
+    private Promotion promotion;
 
     @JsonIgnore
     private MultipartFile imgFile;

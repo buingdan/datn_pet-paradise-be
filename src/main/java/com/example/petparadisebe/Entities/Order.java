@@ -30,6 +30,26 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "order_info")
+    private String orderInfo;
+
+    @Column(name = "payment_method")
+    private String paymentMethod;
+
+    @Column(name = "is_paid")
+    private Boolean isPaid = false;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
