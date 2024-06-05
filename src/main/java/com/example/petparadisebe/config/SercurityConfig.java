@@ -34,6 +34,8 @@ public class SercurityConfig {
                 .requestMatchers("/api/v1/carts/**").permitAll()
                 .requestMatchers("/api/v1/vnpay/**").permitAll()
                 .requestMatchers("/api/v1/promotions/**").permitAll()
+                .requestMatchers("/api/v1/orders/**").permitAll()
+                .requestMatchers("/api/v1/transactions/**").permitAll()
 //                .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 //                .requestMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 //                .requestMatchers("/demo").hasAnyAuthority("ROLE_USER")

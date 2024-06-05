@@ -57,7 +57,7 @@ public class PromotionController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //PUT http://localhost:8090//api/v1/promotions/1
-    public ResponseEntity<?> updateCategory(@PathVariable("id")  Long id,
+    public ResponseEntity<?> updatePromotion(@PathVariable("id")  Long id,
                                             @RequestBody PromotionDto dto){
         Promotion entity = new Promotion();
         BeanUtils.copyProperties(dto, entity);
@@ -83,7 +83,7 @@ public class PromotionController {
 
     @GetMapping("/page")
     //GET http://localhost:8090/api/v1/promotions/page?page=0&sort=id&size=2
-    public  ResponseEntity<?> getCategories( @PageableDefault(size = 5, sort = "name", direction = Sort.Direction.ASC)
+    public  ResponseEntity<?> getPromotions( @PageableDefault(size = 5, sort = "name", direction = Sort.Direction.ASC)
                                              Pageable pageable){
         var list = promotionService.findAll(pageable);
         var newlist = list.stream().map(item ->{
@@ -96,7 +96,7 @@ public class PromotionController {
 
     @GetMapping("/{id}/get")
     //GET http://localhost:8090/api/v1/promotions/1/get
-    public  ResponseEntity<?> getCategories(@PathVariable Long id){
+    public  ResponseEntity<?> getPromotions(@PathVariable Long id){
         var entity = promotionService.findById(id);
         PromotionDto dto = new PromotionDto();
         BeanUtils.copyProperties(entity, dto);
@@ -107,7 +107,7 @@ public class PromotionController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //DELETE http://localhost:8090/api/v1/promotions/1
-    public ResponseEntity<?> deleteCategories(@PathVariable("id") Long id
+    public ResponseEntity<?> deletePromotions(@PathVariable("id") Long id
     ){
         promotionService.deleteById(id);
         return new ResponseEntity<>("Chương trình khuyến mại số " + id + " đã bị xóa", HttpStatus.OK);
@@ -115,7 +115,7 @@ public class PromotionController {
 
     @GetMapping("/get/find")
     //GET http://localhost:8090/api/v1/promotions/get/find?query&&sortData&&sortType&&currentPage=1&&limit=10
-    public ResponseEntity<?> getProducts(@RequestParam(value = "query", defaultValue = "") String query,
+    public ResponseEntity<?> getPromotions(@RequestParam(value = "query", defaultValue = "") String query,
                                          @RequestParam(value = "sortData", defaultValue = "id") String sortData,
                                          @RequestParam(value = "sortType", defaultValue = "asc") String sortType,
                                          @RequestParam(value = "currentPage", defaultValue = "1") Long currentPage,

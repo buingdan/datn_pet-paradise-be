@@ -42,14 +42,6 @@ public class Order {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "order_info")
-    private String orderInfo;
-
-    @Column(name = "payment_method")
-    private String paymentMethod;
-
-    @Column(name = "is_paid")
-    private Boolean isPaid = false;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

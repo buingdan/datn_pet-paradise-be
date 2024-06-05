@@ -35,7 +35,7 @@ public class CategoryController {
     @PostMapping()
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     //POST http://localhost:8090/api/v1/categories
-    public ResponseEntity<?> createProduct(@Valid @RequestBody CategoryDto dto,
+    public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDto dto,
                                            BindingResult result){
         ResponseEntity<?> responseEntity = mapValidationErrorService.mapValidationFields(result);
 
